@@ -1,0 +1,58 @@
+potato chaser - PROOF OF CONCEPT - "potato engine"
+
+Host OS: Arch Linux
+
+6/7/26 11:53PM - I tried to make a game with pure OpenGL, GLFW, and GLAD. That didn't go well. I somehow broke half of the code because I accidentally skipped half of a guide on how to make a triangle.
+I got fed up with that, so I searched up https://www.raylib.com because I heard about it from some guy who made a game run on almost every console. All I remember is that it starred an egg??? Anyway,
+I decided to install raylib with "sudo pacman -S raylib". After that, I linked it to the Makefile and used '#include "raylib.h"' plus a hello world program to ensure that everything was linked correctly.
+Worked beautifully. Anyway, then I tried to render the text "potato chaser" to the top middle of the screen. Don't know why, but it took like 15 minutes to make it work properly. Anyway, I didn't
+really like the default raylib font, so I looked on https://www.1001fonts.com/free-for-commercial-use-fonts.html?page=2 and found https://www.1001fonts.com/opsilon-font.html. I ended up using
+Opsilon-Regular.ttf as the font for the title since I liked it most. Anyway, I tried to get a cube to render. Took HOURS. I'm grateful for every second of the pain. You know why? Because it forced
+me into the state I am in now. I'm exhausted—yes—but also GRATEFUL. The PAIN. The absolute AGONY. TO GET SOMETHING OF MINE TO WORK. But, thankfully, it did. Anyway, after I ended up getting that cube
+to render, I ended up snooping around the raylib.h file and found some camera modes. I fiddled with those for a bit, before settling on first person. I set the character's position to { 0, 5, 5 }
+because raylib didn't like me being at the origin of the 3D scene. I got tired of just walking on a cube. So, I made a grid on the floor. It helps me relax, weirdly enough. Anyway, that's all for
+today. Future plans:
+
+• Add .pm file format (potato map file)
+• Gravity & Collision (jumping, falling off the map, etc.)
+
+END TIME: 6/8/26 12:12 AM
+
+6/9/26 12:09 AM - Welp. I rewrote the physics and now it feels good. Physics are nowhere near done yet, but I feel alot of weight has been taken off of my shoulders. Anyway, I don't have much to
+say for today. This has felt like a breeze. Also, I've done alot yesterday. On the 8th. I don't know why I write stuff in this journal, to be honest. I guess to talk to myself? Like a makeshift
+"diary"? Anyway, I'm getting off track. I looked in raylib.h and raylib.c to help better grasp the concept of many things. I had to look up how to use a Matrix type with "raylib", because I didn't
+really know much about it. Also, the Makefile makes a build/ folder and puts the stuff you need in there. You may notice that theres a "maps" folder there. Yeah, I'm getting to it. Also, I'm moving
+away from using the "micro" code editor because it is ANNOYING. It doesn't understand Makefiles and it tries to act like everything is going wrong. I like "nvim" better. Also, I moved away from using a
+grid for the ground and FINALLY figured out how to texture stuff. I'm definitely going to make this easier for my folks who use the "potato engine". I yoinked some CC0 dirt texture from a website. Link
+was https://opengameart.org/content/tileable-dirt-textures (I had to dig deep through my search history to find that T^T). Also, I added a box around the text "potato chaser" incase you're looking at
+a pure white or RAYWHITE surface. AAAANYWAY, I'm getting tired so bye! Future plans:
+
+• Add VR support (for the engine)
+• POTENTIALLY add VR support (for potato chaser)
+• Actually add .pm files
+• PHYSICS!!! (MY FAVORITEEEEEE)
+
+END TIME: 6/9/26 12:23 AM
+
+6/10/26 12:12 AM - Kind of funny how I started at the same time I ended on the first day of development, 'eh? Anyway, on topic of the devlog, I created velocity for the character (Camera3D camera). Also,
+I disabled a couple checks for "velocity.z" for jumping. So it keeps subtracting 0.5f until it hits zero. Originally, the jump power was 8.0f. Just to make sure the velocity always skipped past zero, I
+set the jump power to 8.1f. Small change, but it's more annoying to make 0.5 a factor of it. So, you pretty much need to play Flappy Bird as soon as you hit the spacebar or else you'll go plummeting
+down to the abyss. I know this will be short tonight—because I didnt get anything done, really. By the way, heres a link to a potato that I used:
+https://www.publicdomainpictures.net/en/view-image.php?image=131480&picture=potato-in-3d. Glad that I atleast got some basic movement "functioning". Oh, also... FUTURE PLANS!!!
+
+• Everything as yesterday
+• Fix bugs
+• Fix the bugs caused by the bug fixing
+• Figure out how to fix memory leaks that only allows you to run "potato chaser" 150,000 times on a single boot
+• Find out that the memory leaks were from stuff that I didn't make but NVIDIA drivers among other various things
+• Figure out why I got nothing done other than some movement stuff and physics—the map is bland.
+• Make the movement reliant on velocity just to make it feel more smooth
+
+END TIME: 6/10/26 12:36 AM
+
+6/11/26 1:31 AM - I got started on collision hitboxes and made movement velocity-based and fixed bugs. That's all for today. Adios. Future plans:
+
+• Same as yesterday
+• I'll figure it out.
+
+END TIME: 6/11/26 11:31 AM
