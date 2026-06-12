@@ -88,9 +88,9 @@ int main() {
 			ToggleFullscreen();
 		}
 
-		//move_check(&camera);
+		move_check(&camera);
 		
-		UpdateCamera(&camera, CAMERA_FREE);
+		//UpdateCamera(&camera, CAMERA_FREE);
 		
 		BeginDrawing();
 		ClearBackground(BLACK);
@@ -103,14 +103,14 @@ int main() {
 
 		const char* title = "potato chaser";
 		int FS = 64;
-
+		
 		float textwidth = MeasureTextEx(font, title, FS, 2).x;
 
 		float x = (GetScreenWidth() / 2) - (textwidth / 2);
 		
 		// DrawRectangle((x - 25), 0, (FS + 8), textwidth, DARKGRAY);
 
-		DrawRectangle((x - 12.25), 0, textwidth, (FS + 4), DARKGRAY);
+		// DrawRectangle((x - 12.25), 0, textwidth, (FS + 4), DARKGRAY);
 
 		DrawTextEx(font, title, Vector2{ x, 0 }, FS, 0, RAYWHITE);
 			
