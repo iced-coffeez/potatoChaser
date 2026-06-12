@@ -7,3 +7,4 @@
 ```make arm```: Compiles the project into an ARM binary with the necessary assets in a ready-to-compress folder titled build/arm/.  
 ```make clean```: Deletes the build/ directory for fresh beginnings.  
 ```make run```: Runs the x86_64 binary in ```build/chaser```.  
+```make runarm```: Runs the ARM binary in ```build/arm/chaser```.

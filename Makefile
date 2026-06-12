@@ -10,6 +10,9 @@ game: $(SRCS)
 run:
 	cd build && ./chaser
 
+runarm:
+	cd build/arm && ./chaser
+
 arm: $(SRCS)
 	mkdir -p build/arm
 	cp -r fonts/ textures/ maps/ build/arm
