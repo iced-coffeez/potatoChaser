@@ -16,7 +16,7 @@ runarm:
 arm: $(SRCS)
 	mkdir -p build/arm
 	cp -r fonts/ textures/ maps/ build/arm
-	aarch64-linux-gnu-g++ $(SRCS) -Iinclude -o build/chaser -lraylib -lGL -lm -lpthread -ldl -lrt -lX11
+	aarch64-linux-gnu-g++ $(SRCS) -Iinclude -o build/arm/chaser -lraylib -lGL -lm -lpthread -ldl -lrt -lX11
 
 clean:
 	rm -rf build/
