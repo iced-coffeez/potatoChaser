@@ -1,6 +1,6 @@
 # a proof-of-concept for `potato engine` :]
 ## THIS IS A WIP.
-
+## NOTE: 64-bit CPUs are guarenteed to work with this, as long as they're relatively new (This project is built on an AMD Phenom(tm) II X4 965 (4) @ 3.40 GHz, so I guess any CPU that was made past 2009 should work.)
 # Make
 ## Usage:  
 ```make```: Compiles the project into an x86_64 binary with the necessary assets in a ready-to-compress folder titled build/.  
