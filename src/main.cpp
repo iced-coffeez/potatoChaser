@@ -35,7 +35,7 @@ int main() {
 
 	Material floorMat = LoadMaterialDefault();
 
-	Mesh floor = GenMeshCube(1000.0f, 0.5f, 1000.0f);
+	Mesh floor = GenMeshCube(1000.0f, 2.0f, 1000.0f);
 
 	float repeat = 100.0f;
 

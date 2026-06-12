@@ -23,7 +23,7 @@ std::vector<CollisionBox*> check_collisions(Vector3 objectPos) {
 		scale.y = Vector3Length({ m->m4, m->m5, m->m6 });
 		scale.z = Vector3Length({ m->m8, m->m9, m->m10 });
 
-		Vector3 endSize = Vector3Multiply(size, scale);
+		Vector3 endSize = Vector3Scale(Vector3Multiply(size, scale), 0.5f);
 		
 		// get da collision box code :P
 
@@ -90,13 +90,7 @@ void move_check(Camera3D *camera) {
 		velocity.y -= currentMovement;
 	} else if (IsKeyDown(KEY_D)) {
 		velocity.y += currentMovement;
-	}
-
-	// jumpies!
-
-	if (IsKeyPressed(KEY_SPACE)) {
-		velocity.z += jPower;
-	}
+	}	
 
 	// velocity handler :] //
 	
@@ -130,9 +124,15 @@ void move_check(Camera3D *camera) {
 	if (check_collisions((*camera).position).empty()) {
 		velocity.z -= gravity;
 	} else {
-		if ((velocity.z - gravity)  ) {
-
+		if (check_collisions(Vector3{(*camera).position.x, ((*camera).position.y - (velocity.z - gravity)), (*camera).position.z}).empty()) {
+			velocity.z -= velocity.z;
 		}
+	}
+
+	// had to squeese another keyboard one here — JUMPIES!!!
+	
+	if (IsKeyPressed(KEY_SPACE)) {
+		velocity.z += jPower;
 	}
 
 	// handle negative values
