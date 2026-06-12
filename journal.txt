@@ -56,3 +56,9 @@ END TIME: 6/10/26 12:36 AM
 • I'll figure it out.
 
 END TIME: 6/11/26 11:31 AM
+
+6/12/26 1:37 AM - Almost done with collision hitboxes. Future plans:
+
+• Same as yesterday and the day before.
+
+END TIME: 6/12/26 1:37 AM
