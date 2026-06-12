@@ -88,7 +88,9 @@ int main() {
 			ToggleFullscreen();
 		}
 
-		move_check(&camera);
+		//move_check(&camera);
+		
+		UpdateCamera(&camera, CAMERA_FREE);
 		
 		BeginDrawing();
 		ClearBackground(BLACK);

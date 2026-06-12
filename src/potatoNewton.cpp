@@ -4,24 +4,57 @@ static Vector3 velocity = { 0.0f };
 
 static std::vector<CollisionBox*> colBoxes;
 
-std::vector<CollisionBox*> check_collisions() {
+std::vector<CollisionBox*> check_collisions(Camera3D camera) {
 	std::vector<CollisionBox*> hits;
 	
 	for (CollisionBox *box : colBoxes) {
-		float x = box->transform.m12;
-		float y = box->transform.m13;
-		float z = box->transform.m14;
+		Matrix *m = box->transform;
+
+		float x = box->transform->m12;
+		float y = box->transform->m13;
+		float z = box->transform->m14;
 		
 		Vector3 size = box->size;
 		Vector3 scale;
 
-		scale.x = Vector3Length({ m.m0, m.m1, m.m2 });
-		scale.y = Vector3Length({ m.m4, m.m5, m.m6 });
-		scale.z = Vector3Length({ m.m8, m.m9, m.m10 });
+		scale.x = Vector3Length({ m->m0, m->m1, m->m2 });
+		scale.y = Vector3Length({ m->m4, m->m5, m->m6 });
+		scale.z = Vector3Length({ m->m8, m->m9, m->m10 });
 
 		Vector3 endSize = Vector3Multiply(size, scale);
 		
-		// pick up tmrw
+		// get da collision box code :P
+
+		float x1 = x + endSize.x;
+		float x2 = x - endSize.x;
+		float y1 = y + endSize.y;
+		float y2 = y - endSize.y;
+		float z1 = z + endSize.z;
+		float z2 = z - endSize.z;
+
+		bool xC = false;
+		bool yC = false;
+		bool zC = false;
+
+		if (camera.position.x > x2 && camera.position.x < x1) {
+			// std::cout << "Player's X coordinate matches!" << std::endl;
+			xC = true;
+		}
+
+		if (camera.position.y > y2 && camera.position.y < y1) {
+			//std::cout << "Player's Y coordinate matches!" << std::endl;
+			yC = true;
+		}
+
+		if (camera.position.z > z2 && camera.position.z < z1) {
+			//std::cout << "Player's Z coordinate matches!" << std::endl;
+			zC = true;
+		}
+
+		if (xC && yC && zC) {
+			//std::cout << "Player is touching object!" << std::endl;
+			hits.push_back(box);
+		}
 	}
 
 	return hits;
