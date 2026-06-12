@@ -14,7 +14,7 @@ typedef struct CollisionBox {
 	Vector3 size;
 } CollisionBox;
 
-std::vector<CollisionBox*> check_collisions(Camera3D 	camera);
+std::vector<CollisionBox*> check_collisions(Vector3 objectPos);
 
 void add_collider(CollisionBox *object);
 

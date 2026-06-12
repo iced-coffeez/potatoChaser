@@ -63,7 +63,7 @@ int main() {
 	floorMat.maps[MATERIAL_MAP_DIFFUSE].texture = dirt;
 	floorMat.maps[MATERIAL_MAP_NORMAL].texture = dirt_nrm;
 
-	Vector3 position = { 0, -0.25f, 5 };
+	Vector3 position = { 0, -1.0f, 5 };
 	Vector3 rotation = { 0, 0, 0 };
 	Vector3 scale = { 1.0f, 1.0f, 1.0f };
 
@@ -77,7 +77,7 @@ int main() {
 
 	CollisionBox floorC;
 	floorC.transform = &transform;
-	floorC.size = { 1000.0f, 0.5f, 1000.0f };
+	floorC.size = { 1000.0f, 2.0f, 1000.0f };
 
 	add_collider(&floorC);
 
@@ -86,7 +86,7 @@ int main() {
 	while(!WindowShouldClose()) {
 		if (IsKeyPressed(KEY_F4)) {
 			ToggleFullscreen();
-		}
+		}	
 
 		move_check(&camera);
 		
@@ -113,6 +113,8 @@ int main() {
 		// DrawRectangle((x - 12.25), 0, textwidth, (FS + 4), DARKGRAY);
 
 		DrawTextEx(font, title, Vector2{ x, 0 }, FS, 0, RAYWHITE);
+
+		DrawText(TextFormat("%f",camera.position.y), 0, 0, 16, RAYWHITE);
 			
 		EndDrawing();
 	}

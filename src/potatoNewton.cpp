@@ -4,7 +4,9 @@ static Vector3 velocity = { 0.0f };
 
 static std::vector<CollisionBox*> colBoxes;
 
-std::vector<CollisionBox*> check_collisions(Camera3D camera) {
+static Vector3 oldPos = { 0.0f };
+
+std::vector<CollisionBox*> check_collisions(Vector3 objectPos) {
 	std::vector<CollisionBox*> hits;
 	
 	for (CollisionBox *box : colBoxes) {
@@ -36,23 +38,23 @@ std::vector<CollisionBox*> check_collisions(Camera3D camera) {
 		bool yC = false;
 		bool zC = false;
 
-		if (camera.position.x > x2 && camera.position.x < x1) {
+		if (objectPos.x > x2 && objectPos.x < x1) {
 			// std::cout << "Player's X coordinate matches!" << std::endl;
 			xC = true;
 		}
 
-		if (camera.position.y > y2 && camera.position.y < y1) {
+		if (objectPos.y - 5 > y2 && objectPos.y - 5 < y1) {
 			//std::cout << "Player's Y coordinate matches!" << std::endl;
 			yC = true;
 		}
 
-		if (camera.position.z > z2 && camera.position.z < z1) {
+		if (objectPos.z > z2 && objectPos.z < z1) {
 			//std::cout << "Player's Z coordinate matches!" << std::endl;
 			zC = true;
 		}
 
 		if (xC && yC && zC) {
-			//std::cout << "Player is touching object!" << std::endl;
+			std::cout << "Player is touching object!" << std::endl;
 			hits.push_back(box);
 		}
 	}
@@ -61,6 +63,8 @@ std::vector<CollisionBox*> check_collisions(Camera3D camera) {
 }
 
 void move_check(Camera3D *camera) {
+	oldPos = (*camera).position;
+
 	float speed = 8.0f;
 
 	float jPower = 32.0f;
@@ -68,6 +72,8 @@ void move_check(Camera3D *camera) {
 	float velocityCap = IsKeyDown(KEY_LEFT_SHIFT) ? 32.0f : 16.0f;
 	
 	float velocityDecay = 1.5f;
+
+	float gravity = 1.8f;
 
 	float dt = GetFrameTime();
 	Vector3 movement = { 0.0f, 0.0f, 0.0f };
@@ -112,12 +118,20 @@ void move_check(Camera3D *camera) {
 		}
 	}
 	
-	if (velocity.z > 0) {
+	/* if (velocity.z > 0) {
 		if ((velocity.z - velocityDecay) < 0) {
 			velocity.z -= velocity.z;
 		} else {
 			velocity.z -= velocityDecay;
 			// std::cout << velocity.z << std::endl; // DEBUGGING
+		}
+	} */
+
+	if (check_collisions((*camera).position).empty()) {
+		velocity.z -= gravity;
+	} else {
+		if ((velocity.z - gravity)  ) {
+
 		}
 	}
 
@@ -139,14 +153,14 @@ void move_check(Camera3D *camera) {
 		}
 	}
 	
-	if (velocity.z < 0) {
+	/* if (velocity.z < 0) {
 		if ((velocity.z + velocityDecay) > 0) {
 			velocity.z += std::abs(velocity.z);
 		} else {
 			velocity.z += velocityDecay;
 			// std::cout << velocity.z << std::endl; // DEBUGGING
 		}
-	}
+	} */
 
 
 	// leveling out & applying velocity //
@@ -174,7 +188,9 @@ void move_check(Camera3D *camera) {
 		0.0f
 	};
 
-	UpdateCameraPro(camera, movement, rotation, 0);	
+	UpdateCameraPro(camera, movement, rotation, 0);
+
+	oldPos = (*camera).position;
 }
 
 void add_collider(CollisionBox *object) {
