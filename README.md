@@ -1,3 +1,4 @@
+# CURRENTLY THIS VERSION HAS ALOT OF MEMORY LEAKS AND BUGS! PLEASE DO NOT CLONE UNTIL THIS NOTICE HAS BEEN REMOVED!
 # a proof-of-concept for `potato engine` :]
 ## THIS IS A WIP.
 ## NOTE: 64-bit CPUs are guaranteed to work with this, as long as they're relatively new (This project was built with an AMD Phenom(tm) II X4 965 (4) @ 3.40 GHz, so I guess any CPU that was made past 2009 should work.)

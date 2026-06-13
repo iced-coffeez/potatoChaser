@@ -1,6 +1,7 @@
 #include "raylib.h"
 #include "raymath.h"
 #include "potatoNewton.hpp"
+#include "objects.hpp"
 
 int main() {
 	SetConfigFlags(FLAG_VSYNC_HINT);
@@ -45,7 +46,7 @@ int main() {
 	
 	UpdateMeshBuffer(
 	    floor,
-	    1, // texture coordinates buffer
+	    1,
 	    floor.texcoords,
 	    floor.vertexCount * 2 * sizeof(float),
 	    0
@@ -96,6 +97,8 @@ int main() {
 		ClearBackground(BLACK);
 
 		BeginMode3D(camera);
+
+		DrawBillboard(camera, dirt, Vector3{90, 5, 0}, 10, WHITE);
 
 		DrawMesh(floor, floorMat, transform);
 		

@@ -10,6 +10,8 @@ std::vector<CollisionBox*> check_collisions(Vector3 objectPos) {
 	std::vector<CollisionBox*> hits;
 	
 	for (CollisionBox *box : colBoxes) {
+		if (box == nullptr) continue;
+
 		Matrix *m = box->transform;
 
 		float x = box->transform->m12;
@@ -43,7 +45,7 @@ std::vector<CollisionBox*> check_collisions(Vector3 objectPos) {
 			xC = true;
 		}
 
-		if (objectPos.y - 5 > y2 && objectPos.y - 5 < y1) {
+		if (objectPos.y > y2 && objectPos.y < y1) {
 			//std::cout << "Player's Y coordinate matches!" << std::endl;
 			yC = true;
 		}
@@ -63,6 +65,8 @@ std::vector<CollisionBox*> check_collisions(Vector3 objectPos) {
 }
 
 void move_check(Camera3D *camera) {
+	if (camera == nullptr) return;
+
 	oldPos = (*camera).position;
 
 	float speed = 8.0f;
@@ -124,7 +128,7 @@ void move_check(Camera3D *camera) {
 	if (check_collisions((*camera).position).empty()) {
 		velocity.z -= gravity;
 	} else {
-		if (check_collisions(Vector3{(*camera).position.x, ((*camera).position.y - (velocity.z - gravity)), (*camera).position.z}).empty()) {
+		if (check_collisions(Vector3{(*camera).position.x, ((*camera).position.y - (velocity.z - gravity)) - 5, (*camera).position.z}).empty()) {
 			velocity.z -= velocity.z;
 		}
 	}
@@ -194,16 +198,22 @@ void move_check(Camera3D *camera) {
 }
 
 void add_collider(CollisionBox *object) {
+	if (object == nullptr) return;
+
 	colBoxes.push_back(object);
 }
 
 void list_collider_memory_addresses() {
 	for (CollisionBox *box : colBoxes) {
+		if (box == nullptr) return;
+
 		std::cout << box << std::endl;
 	}
 }
 
 void unload_collider(CollisionBox *object) {
+	if (object == nullptr) return;
+
 	auto it = std::find(colBoxes.begin(), colBoxes.end(), object);
 
 	if (it != colBoxes.end()) {
