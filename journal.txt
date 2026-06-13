@@ -62,3 +62,9 @@ END TIME: 6/11/26 11:31 AM
 • Same as yesterday and the day before.
 
 END TIME: 6/12/26 1:37 AM
+
+6/13/26 2:24 AM - I am worn and tired. I worked on getting object types working. Barely functions, but I'm happy. Future plans:
+
+• Get the stuff that I need to work.
+• Same as yesterday, the day before, and the day before that.
+• I have no idea. Just get this working and fix out all of the memory leaks because C++ is hard without a guide.
