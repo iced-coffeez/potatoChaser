@@ -10,7 +10,8 @@
 enum class ObjectPreset {
 	CheckeredCube,
 	WhiteSphere,
-	Potato
+	Potato,
+	None
 };
 
 enum class ObjectType {
@@ -19,7 +20,7 @@ enum class ObjectType {
 };
 
 typedef struct Object {
-	ObjectPreset preset;
+	ObjectPreset preset = ObjectPreset::None;
 
 	Mesh mesh = { 0 };
 	Vector3 position = { 0.0f };
@@ -36,8 +37,11 @@ typedef struct Object {
 
 typedef struct InitializedObject {
 	ObjectType type;
+	
+	Object *originalObjectToReadPropertiesFromIncaseTheyChange = nullptr;
 
 	CollisionBox collisionBox;
+	bool inactive = true;
 	Matrix transform;
 	Texture2D *BillboardTexture = { 0 };
 	Material material;
@@ -46,7 +50,9 @@ typedef struct InitializedObject {
 	float BillboardScale = 3.0f;
 } InitializedObject;
 
-void add_object(Object *object);
-void remove_object(Object *object);
+void init_obj();
 
-void draw_objects();
+void add_object(Object *object);
+void remove_object(InitializedObject *object);
+
+void render_objects(Camera3D *camera);

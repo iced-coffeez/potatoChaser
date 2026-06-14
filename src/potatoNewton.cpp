@@ -6,11 +6,15 @@ static std::vector<CollisionBox*> colBoxes;
 
 static Vector3 oldPos = { 0.0f };
 
+static bool twosies = false;
+
 std::vector<CollisionBox*> check_collisions(Vector3 objectPos) {
 	std::vector<CollisionBox*> hits;
 	
 	for (CollisionBox *box : colBoxes) {
 		if (box == nullptr) continue;
+		
+		if (box->transform == nullptr) continue;
 
 		Matrix *m = box->transform;
 
@@ -71,6 +75,8 @@ void move_check(Camera3D *camera) {
 
 	float speed = 8.0f;
 
+	bool canJump = false;	
+
 	float jPower = 32.0f;
 
 	float velocityCap = IsKeyDown(KEY_LEFT_SHIFT) ? 32.0f : 16.0f;
@@ -78,6 +84,8 @@ void move_check(Camera3D *camera) {
 	float velocityDecay = 1.5f;
 
 	float gravity = 1.8f;
+
+	int camHeight = 5;
 
 	float dt = GetFrameTime();
 	Vector3 movement = { 0.0f, 0.0f, 0.0f };
@@ -125,18 +133,24 @@ void move_check(Camera3D *camera) {
 		}
 	} */
 
-	if (check_collisions((*camera).position).empty()) {
+	if (check_collisions(Vector3{(*camera).position.x, (*camera).position.y - camHeight, (*camera).position.z}).empty()) {
+		canJump = false;
 		velocity.z -= gravity;
 	} else {
-		if (check_collisions(Vector3{(*camera).position.x, ((*camera).position.y - (velocity.z - gravity)) - 5, (*camera).position.z}).empty()) {
+		canJump = true;
+		if (check_collisions(Vector3{(*camera).position.x, ((*camera).position.y - (velocity.z - gravity) - camHeight), (*camera).position.z}).empty()) {
 			velocity.z -= velocity.z;
 		}
 	}
 
 	// had to squeese another keyboard one here — JUMPIES!!!
 	
-	if (IsKeyPressed(KEY_SPACE)) {
+	if (IsKeyPressed(KEY_SPACE) && canJump) {
 		velocity.z += jPower;
+		twosies = true;
+	} else if (IsKeyPressed(KEY_SPACE) && twosies) {
+		velocity.z += jPower * 1.2;
+		twosies = false;
 	}
 
 	// handle negative values
@@ -176,6 +190,53 @@ void move_check(Camera3D *camera) {
 	velocity.x = (std::abs(velocity.x) > velocityCap) ? (velocityCap * -1) : velocity.x;
 	velocity.y = (std::abs(velocity.y) > velocityCap) ? (velocityCap * -1) : velocity.y;
 	// velocity.z = (std::abs(velocity.z) > velocityCap) ? (velocityCap * -1) : velocity.z;
+	
+	/* Camera3D testCam = *camera;
+
+	UpdateCameraPro(&testCam, movement, rotation, 0);
+	
+	Vector3 playerConceptualPosition = {
+		(movement.x + velocity.x * dt),
+		((*camera).position.y + velocity.y * dt),
+		((*camera).position.z + velocity.z * dt)};
+	std::vector<CollisionBox*> hits = check_collisions(playerConceptualPosition);
+	if (!hits.empty()) {
+	for (CollisionBox *box : hits) {
+			if (box == nullptr) continue;
+		
+			if (box->transform == nullptr) continue;
+
+			Matrix *m = box->transform;
+
+			float x = box->transform->m12;
+			float y = box->transform->m13;
+			float z = box->transform->m14;
+		
+			Vector3 size = box->size;
+			Vector3 scale;
+
+			scale.x = Vector3Length({ m->m0, m->m1, m->m2 });
+			scale.y = Vector3Length({ m->m4, m->m5, m->m6 });
+			scale.z = Vector3Length({ m->m8, m->m9, m->m10 });
+
+			Vector3 endSize = Vector3Scale(Vector3Multiply(size, scale), 0.5f);
+		
+			// get da collision box code :P
+
+			// float x1 = x + endSize.x;
+			// float x2 = x - endSize.x;
+			float y1 = y + endSize.y;
+			// float y2 = y - endSize.y;
+			// float z1 = z + endSize.z;
+			// float z2 = z - endSize.z;
+
+			if (playerConceptualPosition.y < y1) {
+				movement.y += (y1 - playerConceptualPosition.y);
+			}
+
+		}
+	
+	} */
 
 	movement.x += velocity.x * dt;
 	movement.y += velocity.y * dt;
@@ -205,7 +266,7 @@ void add_collider(CollisionBox *object) {
 
 void list_collider_memory_addresses() {
 	for (CollisionBox *box : colBoxes) {
-		if (box == nullptr) return;
+		if (box == nullptr) continue;
 
 		std::cout << box << std::endl;
 	}

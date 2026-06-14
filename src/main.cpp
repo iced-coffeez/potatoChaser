@@ -6,6 +6,8 @@
 int main() {
 	SetConfigFlags(FLAG_VSYNC_HINT);
 
+	init_obj();
+
 	InitWindow(GetMonitorWidth(GetCurrentMonitor()) / 1.5, GetMonitorHeight(GetCurrentMonitor()) / 1.5, "potato chaser");
 	SetTargetFPS(GetMonitorRefreshRate(GetCurrentMonitor()));
 
@@ -34,7 +36,7 @@ int main() {
 	    int projection;         // Camera projection: CAMERA_PERSPECTIVE or CAMERA_ORTHOGRAPHIC
 	} Camera3D; */
 
-	Material floorMat = LoadMaterialDefault();
+	/* Material floorMat = LoadMaterialDefault();
 
 	Mesh floor = GenMeshCube(1000.0f, 2.0f, 1000.0f);
 
@@ -50,12 +52,22 @@ int main() {
 	    floor.texcoords,
 	    floor.vertexCount * 2 * sizeof(float),
 	    0
-	);
+	); */
 
 	Texture2D dirt = LoadTexture("textures/dirt.png");
 	Texture2D dirt_nrm = LoadTexture("textures/dirt_nrm.png");
 
-	SetTextureFilter(dirt, TEXTURE_FILTER_POINT);
+	Object floor;
+	floor.mesh = GenMeshCube(1000.0f, 10.0f, 1000.0f);
+	floor.texture = dirt;
+	floor.normal = dirt_nrm;
+	floor.textureRepeat = true;
+	floor.textureRepeatAmount = 100.0f;
+	floor.position = Vector3{ 0, -8.0f, 0 };
+
+	add_object(&floor);
+
+	/* SetTextureFilter(dirt, TEXTURE_FILTER_POINT);
 	SetTextureWrap(dirt, TEXTURE_WRAP_REPEAT);
 
 	SetTextureFilter(dirt_nrm, TEXTURE_FILTER_POINT);
@@ -80,7 +92,7 @@ int main() {
 	floorC.transform = &transform;
 	floorC.size = { 1000.0f, 2.0f, 1000.0f };
 
-	add_collider(&floorC);
+	add_collider(&floorC); */
 
 	// list_collider_memory_addresses();
 	
@@ -98,9 +110,11 @@ int main() {
 
 		BeginMode3D(camera);
 
-		DrawBillboard(camera, dirt, Vector3{90, 5, 0}, 10, WHITE);
+		// DrawBillboard(camera, dirt, Vector3{90, 5, 0}, 10, WHITE);
 
-		DrawMesh(floor, floorMat, transform);
+		// DrawMesh(floor, floorMat, transform);
+		
+		render_objects(&camera);
 		
 		EndMode3D();
 
@@ -121,11 +135,7 @@ int main() {
 			
 		EndDrawing();
 	}
-	
-	UnloadTexture(dirt);
-	UnloadTexture(dirt_nrm);
-	UnloadMesh(floor);
-	UnloadMaterial(floorMat);
+		
 	UnloadFont(font);
 	CloseWindow();
 }
