@@ -95,18 +95,20 @@ void add_object(Object *object) {
 		if ((*object).normal.id != 0) {
 			SetTextureWrap((*object).normal, TEXTURE_WRAP_REPEAT);
 		}
-
-		for (int i = 0; i < (*object).mesh.vertexCount * 2; i++) {
-			(*object).mesh.texcoords[i] *= (*object).textureRepeatAmount;
-		}
+		
+		if (object->mesh.texcoords != nullptr) {
+			for (int i = 0; i < (*object).mesh.vertexCount * 2; i++) {
+				(*object).mesh.texcoords[i] *= (*object).textureRepeatAmount;
+			}
 	
-		UpdateMeshBuffer(
-			(*object).mesh,
-			1,
-			(*object).mesh.texcoords,
-			(*object).mesh.vertexCount * 2 * sizeof(float),
-	    		0
-		);
+			UpdateMeshBuffer(
+				(*object).mesh,
+				1,
+				(*object).mesh.texcoords,
+				(*object).mesh.vertexCount * 2 * sizeof(float),
+	    			0
+			);
+		}
 	}	
 
 	newMaterial.maps[MATERIAL_MAP_DIFFUSE].texture = (*object).texture;
@@ -178,8 +180,13 @@ void remove_object(Object *object) {
 	/* for (InitializedObject *initObj : objects) {
 		if (initObj == nullptr) continue;*/
 	
-		for (auto it = objects.begin(); it != objects.end();) {
+		for (auto it = objects.begin(); it != objects.end();) {	
 			if (it->originalObjectToReadPropertiesFromIncaseTheyChange == object) {
+				if (it->inactive) {
+					++it;
+					continue;
+				}
+
 				UnloadMaterial((*it).material);
 
 				unload_collider(&it->collisionBox);

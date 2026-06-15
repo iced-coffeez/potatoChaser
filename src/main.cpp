@@ -135,7 +135,8 @@ int main() {
 			
 		EndDrawing();
 	}
-		
+	
+	remove_object(&floor);
 	UnloadFont(font);
 	CloseWindow();
 }

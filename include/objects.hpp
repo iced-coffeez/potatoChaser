@@ -53,6 +53,6 @@ typedef struct InitializedObject {
 void init_obj();
 
 void add_object(Object *object);
-void remove_object(InitializedObject *object);
+void remove_object(Object *object);
 
 void render_objects(Camera3D *camera);

@@ -60,7 +60,7 @@ std::vector<CollisionBox*> check_collisions(Vector3 objectPos) {
 		}
 
 		if (xC && yC && zC) {
-			std::cout << "Player is touching object!" << std::endl;
+			// std::cout << "Player is touching object!" << std::endl;
 			hits.push_back(box);
 		}
 	}
@@ -191,14 +191,30 @@ void move_check(Camera3D *camera) {
 	velocity.y = (std::abs(velocity.y) > velocityCap) ? (velocityCap * -1) : velocity.y;
 	// velocity.z = (std::abs(velocity.z) > velocityCap) ? (velocityCap * -1) : velocity.z;
 	
-	/* Camera3D testCam = *camera;
+	// checks!
+	// 
+	// i need to do mouse crap early
+	float sensitivity = 0.1f;
+	Vector2 md = GetMouseDelta();
 
-	UpdateCameraPro(&testCam, movement, rotation, 0);
-	
-	Vector3 playerConceptualPosition = {
+	Vector3 rotation = {
+		md.x * sensitivity,
+		md.y * sensitivity,
+		0.0f
+	};
+
+	Camera3D testCam = *camera;
+
+	Vector3 playerConceptualAdditives = {
 		(movement.x + velocity.x * dt),
-		((*camera).position.y + velocity.y * dt),
-		((*camera).position.z + velocity.z * dt)};
+		(movement.y + velocity.y * dt),
+		(movement.z + velocity.z * dt)};
+
+	UpdateCameraPro(&testCam, playerConceptualAdditives, rotation, 0);
+	
+	testCam.position = { testCam.position.x, testCam.position.y - 5, testCam.position.z };
+	Vector3 playerConceptualPosition = testCam.position;
+		
 	std::vector<CollisionBox*> hits = check_collisions(playerConceptualPosition);
 	if (!hits.empty()) {
 	for (CollisionBox *box : hits) {
@@ -230,28 +246,17 @@ void move_check(Camera3D *camera) {
 			// float z1 = z + endSize.z;
 			// float z2 = z - endSize.z;
 
-			if (playerConceptualPosition.y < y1) {
-				movement.y += (y1 - playerConceptualPosition.y);
+			if (playerConceptualPosition.y < y1 && velocity.z > 0)  {
+				movement.z += (y1 - playerConceptualPosition.y);
 			}
 
 		}
 	
-	} */
+	}
 
 	movement.x += velocity.x * dt;
 	movement.y += velocity.y * dt;
-	movement.z += velocity.z * dt;
-
-	// time for mouse crap //
-
-	float sensitivity = 0.1f;
-	Vector2 md = GetMouseDelta();
-
-	Vector3 rotation = {
-		md.x * sensitivity,
-		md.y * sensitivity,
-		0.0f
-	};
+	movement.z += velocity.z * dt;	
 
 	UpdateCameraPro(camera, movement, rotation, 0);
 
