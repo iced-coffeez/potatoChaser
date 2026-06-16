@@ -55,6 +55,7 @@ void add_object(Object *object) {
 		
 		potato.billboard = true;
 		potato.texture = LoadTexture("textures/potato.png");
+		potato.billboardScale = 3.0f;
 		potato.textureRepeat = false;
 	}
 
@@ -74,7 +75,7 @@ void add_object(Object *object) {
 
 	if ((*object).billboard) {
 		newObject.type = ObjectType::Billboard;
-		newObject.BillboardTexture = &(object->texture);
+		newObject.BillboardTexture = object->texture;
 		newObject.BillboardScale = (*object).billboardScale;
 	} else {
 		newObject.type = ObjectType::Mesh;
@@ -209,6 +210,12 @@ void remove_object(Object *object) {
 					object->normal = { 0 };
 				}
 
+				if ((*it).BillboardTexture.id != 0) {
+					UnloadTexture((*it).BillboardTexture);
+					it->BillboardTexture = { 0 };
+				}
+
+
 				break;
 			} else {
 				++it;
@@ -233,7 +240,7 @@ void render_objects(Camera3D *camera) {
 		} else if (object.type == ObjectType::Billboard) {
 			Vector3 position = { object.transform.m12, object.transform.m13, object.transform.m14 };
 
-			DrawBillboard(*camera, *object.BillboardTexture, position, object.BillboardScale, WHITE);
+			DrawBillboard(*camera, object.BillboardTexture, position, object.BillboardScale, WHITE);
 		}
 	}
 }

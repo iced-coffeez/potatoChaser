@@ -65,7 +65,12 @@ int main() {
 	floor.textureRepeatAmount = 100.0f;
 	floor.position = Vector3{ 0, -8.0f, 0 };
 
+	Object potato;
+	potato.preset = ObjectPreset::Potato;
+	potato.position = Vector3{ 5, 2, 0 };
+
 	add_object(&floor);
+	add_object(&potato);
 
 	/* SetTextureFilter(dirt, TEXTURE_FILTER_POINT);
 	SetTextureWrap(dirt, TEXTURE_WRAP_REPEAT);
@@ -135,7 +140,9 @@ int main() {
 			
 		EndDrawing();
 	}
-	
+
+
+	remove_object(&potato);
 	remove_object(&floor);
 	UnloadFont(font);
 	CloseWindow();

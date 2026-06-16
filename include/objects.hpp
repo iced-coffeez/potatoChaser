@@ -32,6 +32,7 @@ typedef struct Object {
 	Texture2D normal = { 0 };
 	bool textureRepeat = false;
 	bool billboard = false;
+	bool collides = true;
 	float textureRepeatAmount = 1.0f;
 } Object;
 
@@ -43,7 +44,7 @@ typedef struct InitializedObject {
 	CollisionBox collisionBox;
 	bool inactive = true;
 	Matrix transform;
-	Texture2D *BillboardTexture = { 0 };
+	Texture2D BillboardTexture = { 0 };
 	Material material;
 	Mesh *mesh;
 	Vector3 scale = { 1.0f };

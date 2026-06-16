@@ -75,3 +75,8 @@ END TIME: 6/12/26 1:37 AM
 • Menu!!!
 
 END TIME: 6/13/26 11:44 PM
+
+6/15/26 11:15 PM - I don't have much time to write this. I just fixed a couple bugs. Future plans:
+
+• An editor for the maps (engine)
+• Start menu
