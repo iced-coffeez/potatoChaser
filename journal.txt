@@ -1,6 +1,6 @@
 potato chaser - PROOF OF CONCEPT - "potato engine"
 
-Host OS: Arch Linux
+Host OS: Arch Linux (x86_64 BIOS)
 
 6/7/26 11:53PM - I tried to make a game with pure OpenGL, GLFW, and GLAD. That didn't go well. I somehow broke half of the code because I accidentally skipped half of a guide on how to make a triangle.
 I got fed up with that, so I searched up https://www.raylib.com because I heard about it from some guy who made a game run on almost every console. All I remember is that it starred an egg??? Anyway,
@@ -50,6 +50,8 @@ https://www.publicdomainpictures.net/en/view-image.php?image=131480&picture=pota
 
 END TIME: 6/10/26 12:36 AM
 
+Host OS: Ubuntu 26.04 (x86_64 UEFI)
+
 6/11/26 1:31 AM - I got started on collision hitboxes and made movement velocity-based and fixed bugs. That's all for today. Adios. Future plans:
 
 • Same as yesterday
@@ -80,3 +82,8 @@ END TIME: 6/13/26 11:44 PM
 
 • An editor for the maps (engine)
 • Start menu
+
+6/16/26 ??:?? ?M - So, I'm writing this in the future. I didn't get anything done. Not even doing future plans for today. I was dumping a PS4 game.
+
+END TIME: ?/??/?? ??:?? ?M
+
