@@ -1,6 +1,8 @@
 # a proof-of-concept for `potato engine` :]
 ## THIS IS A WIP.
 ## NOTE: 64-bit CPUs are guaranteed to work with this, as long as they're relatively new (This project was built with an AMD Phenom(tm) II X4 965 (4) @ 3.40 GHz, so I guess any CPU that was made past 2009 should work.)
+# Credits
+## Thanks to [raylib](https://raylib.com) for the library! I had an awesome time with this!!
 # Make
 ## Usage:  
 ```make```: Compiles the project into an x86_64 binary with the necessary assets in a ready-to-compress folder titled build/.  
