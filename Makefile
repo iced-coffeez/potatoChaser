@@ -34,6 +34,10 @@ else ifeq ($(PLATFORM),Windows)
 endif
 
 run:
+ifeq ($(wildcard build/),)
+	make
+endif
+
 ifeq ($(PLATFORM),Windows)
 ifneq ($(findstring yes, $(mingw)))
 	cd build && ./chaser.exe

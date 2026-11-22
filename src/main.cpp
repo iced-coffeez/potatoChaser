@@ -8,12 +8,16 @@ int main() {
 
 	init_obj();
 
-	InitWindow(GetMonitorWidth(GetCurrentMonitor()) / 1.5, GetMonitorHeight(GetCurrentMonitor()) / 1.5, "potato chaser");
+	InitWindow(GetMonitorWidth(GetCurrentMonitor()) / 2, GetMonitorHeight(GetCurrentMonitor()) / 2, "potato chaser");
 	SetTargetFPS(GetMonitorRefreshRate(GetCurrentMonitor()));
 
-	if (!IsWindowFullscreen()) {
+	SetWindowPosition((GetMonitorWidth(GetCurrentMonitor())) / 4, GetMonitorHeight(GetCurrentMonitor()) / 4);
+
+	if (IsWindowFullscreen()) {
 		ToggleFullscreen();
 	}
+
+	ToggleBorderlessWindowed();
 
 	DisableCursor();
 
@@ -103,7 +107,7 @@ int main() {
 	
 	while(!WindowShouldClose()) {
 		if (IsKeyPressed(KEY_F4)) {
-			ToggleFullscreen();
+			ToggleBorderlessWindowed();
 		}	
 
 		move_check(&camera);
